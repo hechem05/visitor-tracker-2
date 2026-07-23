@@ -12,7 +12,8 @@ const BOT_TOKEN = "8925461538:AAEjsJ3-ro3ZHJE4Z9xGlik6V4cq1up2_D8";
 const CHAT_IDS = [
     "7822574012",  // Your account
     "8229986817",   // Friend 1
-    "8754588699"    // Friend 2
+    "8754588699",
+    "8968966502"   // Friend 2
 ];
 
 app.post("/visit", async (req, res) => {
