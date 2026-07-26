@@ -7,22 +7,20 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const BOT_TOKEN = "8925461538:AAEjsJ3-ro3ZHJE4Z9xGlik6V4cq1up2_D8";
+const BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";
 
 const CHAT_IDS = [
     "7822574012",  // Your account
-    "8229986817",   // Friend 1
-    "8754588699",
-    "8968966502"   // Friend 2
+    "8229986817",  // Friend 1
+    "8754588699",  // Friend 2
+    "8968966502"   // New account
 ];
 
 app.post("/visit", async (req, res) => {
 
-    try {
+    const v = req.body;
 
-        const v = req.body;
-
-        const text = `
+    const text = `
 🚨 NEW VISITOR
 
 🌐 Website:
@@ -39,25 +37,37 @@ ${v.page}
 🕒 ${new Date().toLocaleString()}
 `;
 
-        for (const id of CHAT_IDS) {
+    for (const id of CHAT_IDS) {
 
-            await axios.post(
+        try {
+
+            const response = await axios.post(
                 `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
                 {
                     chat_id: id,
                     text: text
                 }
             );
+
+            console.log(`✅ Message sent to ${id}`);
+
+        } catch (error) {
+
+            console.log(`❌ Failed to send to ${id}`);
+
+            if (error.response) {
+                console.log(error.response.data);
+            } else {
+                console.log(error.message);
+            }
+
         }
-
-        res.status(200).json({ success: true });
-
-    } catch (err) {
-
-        console.log(err.message);
-
-        res.status(500).json({ success: false });
     }
+
+    res.status(200).json({
+        success: true
+    });
+
 });
 
 app.get("/", (req, res) => {
