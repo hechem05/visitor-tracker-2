@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";
+const BOT_TOKEN = "8925461538:AAEjsJ3-ro3ZHJE4Z9xGlik6V4cq1up2_D8";
 
 const CHAT_IDS = [
     "7822574012",  // Your account
